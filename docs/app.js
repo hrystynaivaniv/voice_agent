@@ -1,6 +1,6 @@
 // Fill in after deploying the worker (`npx wrangler deploy`) and setting the ACCESS_CODE secret.
-const WORKER_URL = "https://voice-agent.your-subdomain.workers.dev";
-const ACCESS_CODE = "PUT_YOUR_ACCESS_CODE_HERE";
+const WORKER_URL = "https://voice-agent.voice-agent-khrystyna.workers.dev";
+const ACCESS_CODE = "VmsIBM1@";
 
 const modelSelect = document.getElementById("model");
 const voiceSelect = document.getElementById("voice");
