@@ -108,6 +108,12 @@ button:disabled {
   cursor: not-allowed;
 }
 
+.hint {
+  margin: 4px 0 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
 .status {
   min-height: 1.2em;
   font-size: 0.85rem;

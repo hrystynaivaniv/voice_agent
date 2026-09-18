@@ -23,8 +23,11 @@
       <div class="col">
         <label for="voice">Voice</label>
         <select id="voice">
+          <option value="marin">marin (recommended)</option>
+          <option value="cedar">cedar (recommended)</option>
           <option value="alloy">alloy</option>
           <option value="ash">ash</option>
+          <option value="ballad">ballad</option>
           <option value="coral">coral</option>
           <option value="echo">echo</option>
           <option value="fable">fable</option>
@@ -36,6 +39,7 @@
         </select>
       </div>
     </div>
+    <p class="hint">Note: ballad, marin, cedar, and verse only work with gpt-4o-mini-tts, not with tts-1 / tts-1-hd.</p>
 
     <label for="text">Text to speak</label>
     <textarea id="text" rows="6" placeholder="Paste the text you want to voice..."></textarea>
