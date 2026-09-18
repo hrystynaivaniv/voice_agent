@@ -1,5 +1,7 @@
-const workerUrlInput = document.getElementById("workerUrl");
-const accessCodeInput = document.getElementById("accessCode");
+// Заповнити після деплою воркера (`npx wrangler deploy`) та встановлення секрету ACCESS_CODE.
+const WORKER_URL = "https://voice-agent.your-subdomain.workers.dev";
+const ACCESS_CODE = "PUT_YOUR_ACCESS_CODE_HERE";
+
 const modelSelect = document.getElementById("model");
 const voiceSelect = document.getElementById("voice");
 const textArea = document.getElementById("text");
@@ -9,9 +11,6 @@ const saveBtn = document.getElementById("saveBtn");
 const statusEl = document.getElementById("status");
 const player = document.getElementById("player");
 
-workerUrlInput.value = localStorage.getItem("va_worker_url") || "";
-accessCodeInput.value = localStorage.getItem("va_access_code") || "";
-
 let lastBlobUrl = null;
 
 function setStatus(msg) {
@@ -19,32 +18,23 @@ function setStatus(msg) {
 }
 
 async function requestSpeech() {
-  const workerUrl = workerUrlInput.value.trim();
-  const accessCode = accessCodeInput.value;
   const input = textArea.value.trim();
 
-  if (!workerUrl) {
-    setStatus("Вкажіть адресу бекенду (Worker URL).");
-    return null;
-  }
   if (!input) {
     setStatus("Введіть текст для озвучки.");
     return null;
   }
-
-  localStorage.setItem("va_worker_url", workerUrl);
-  localStorage.setItem("va_access_code", accessCode);
 
   setStatus("Генерую аудіо...");
   playBtn.disabled = true;
   saveBtn.disabled = true;
 
   try {
-    const res = await fetch(workerUrl, {
+    const res = await fetch(WORKER_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        accessCode,
+        accessCode: ACCESS_CODE,
         model: modelSelect.value,
         voice: voiceSelect.value,
         input,
