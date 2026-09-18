@@ -1,0 +1,20 @@
+name = "voice-agent"
+main = "src/index.ts"
+compatibility_date = "2024-09-01"
+
+# Публічний домен вашого GitHub Pages, наприклад:
+# "https://<username>.github.io"
+[vars]
+ALLOWED_ORIGIN = "https://<username>.github.io"
+
+# Секрети (OPENAI_API_KEY, ACCESS_CODE) НЕ зберігаються тут.
+# Задаються командами:
+#   wrangler secret put OPENAI_API_KEY
+#   wrangler secret put ACCESS_CODE
+
+# Опційно, для rate limiting. Створити namespace:
+#   wrangler kv namespace create RATE_LIMIT_KV
+# і вставити id, який видасть команда:
+# [[kv_namespaces]]
+# binding = "RATE_LIMIT_KV"
+# id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"

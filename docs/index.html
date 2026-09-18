@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Voice Agent — озвучка тексту</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="card">
+    <h1>Озвучка тексту (TTS)</h1>
+
+    <label for="workerUrl">Адреса бекенду (Worker URL)</label>
+    <input id="workerUrl" type="text" placeholder="https://voice-agent.your-subdomain.workers.dev" />
+
+    <label for="accessCode">Код доступу</label>
+    <input id="accessCode" type="password" placeholder="Код доступу" />
+
+    <div class="row">
+      <div class="col">
+        <label for="model">Модель</label>
+        <select id="model">
+          <option value="tts-1">tts-1</option>
+          <option value="tts-1-hd">tts-1-hd</option>
+          <option value="gpt-4o-mini-tts" selected>gpt-4o-mini-tts</option>
+        </select>
+      </div>
+
+      <div class="col">
+        <label for="voice">Голос</label>
+        <select id="voice">
+          <option value="alloy">alloy</option>
+          <option value="ash">ash</option>
+          <option value="coral">coral</option>
+          <option value="echo">echo</option>
+          <option value="fable">fable</option>
+          <option value="nova" selected>nova</option>
+          <option value="onyx">onyx</option>
+          <option value="sage">sage</option>
+          <option value="shimmer">shimmer</option>
+          <option value="verse">verse</option>
+        </select>
+      </div>
+    </div>
+
+    <label for="text">Текст для озвучки</label>
+    <textarea id="text" rows="6" placeholder="Вставте текст, який потрібно озвучити..."></textarea>
+
+    <label for="prompt">Промпт (інструкції щодо тону)</label>
+    <textarea id="prompt" rows="3">Read the text with a tone that is clear, professional, high energy and confident, but not monotonous. Add slight warmth and emphasis so learners stay interested.</textarea>
+
+    <div class="actions">
+      <button id="playBtn">▶ Прослухати</button>
+      <button id="saveBtn" disabled>⬇ Зберегти mp3</button>
+    </div>
+
+    <p id="status" class="status"></p>
+
+    <audio id="player" controls></audio>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
