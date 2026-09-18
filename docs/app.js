@@ -1,4 +1,4 @@
-// Заповнити після деплою воркера (`npx wrangler deploy`) та встановлення секрету ACCESS_CODE.
+// Fill in after deploying the worker (`npx wrangler deploy`) and setting the ACCESS_CODE secret.
 const WORKER_URL = "https://voice-agent.your-subdomain.workers.dev";
 const ACCESS_CODE = "PUT_YOUR_ACCESS_CODE_HERE";
 
@@ -21,11 +21,11 @@ async function requestSpeech() {
   const input = textArea.value.trim();
 
   if (!input) {
-    setStatus("Введіть текст для озвучки.");
+    setStatus("Enter the text to voice.");
     return null;
   }
 
-  setStatus("Генерую аудіо...");
+  setStatus("Generating audio...");
   playBtn.disabled = true;
   saveBtn.disabled = true;
 
@@ -44,15 +44,15 @@ async function requestSpeech() {
 
     if (!res.ok) {
       const text = await res.text();
-      setStatus(`Помилка (${res.status}): ${text}`);
+      setStatus(`Error (${res.status}): ${text}`);
       return null;
     }
 
     const blob = await res.blob();
-    setStatus("Готово.");
+    setStatus("Done.");
     return blob;
   } catch (err) {
-    setStatus(`Помилка запиту: ${err.message}`);
+    setStatus(`Request error: ${err.message}`);
     return null;
   } finally {
     playBtn.disabled = false;

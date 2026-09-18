@@ -1,71 +1,71 @@
-# Voice Agent — веб-інтерфейс для TTS
+# Voice Agent — TTS web UI
 
-Веб-сторінка (`docs/`) для озвучки тексту через OpenAI TTS, з бекендом-проксі (`worker/`),
-який ховає API-ключ і хоститься на Cloudflare Workers.
+A web page (`docs/`) for voicing text via OpenAI TTS, backed by a proxy
+(`worker/`) that hides the API key and runs on Cloudflare Workers.
 
-## 1. Деплой бекенду (Cloudflare Worker)
+## 1. Deploy the backend (Cloudflare Worker)
 
 ```bash
 cd worker
 npm install
-npx wrangler login          # одноразова авторизація в Cloudflare
-npx wrangler secret put OPENAI_API_KEY   # вставити свій ключ OpenAI
-npx wrangler secret put ACCESS_CODE      # свій довгий код доступу (20+ символів)
+npx wrangler login          # one-time Cloudflare authorization
+npx wrangler secret put OPENAI_API_KEY   # paste your OpenAI key
+npx wrangler secret put ACCESS_CODE      # your own long access code (20+ chars)
 ```
 
-У `wrangler.toml` вкажіть `ALLOWED_ORIGIN` — домен, де буде GitHub Pages
-(напр. `https://khrystyna-ivaniv.github.io`).
+In `wrangler.toml`, set `ALLOWED_ORIGIN` to your GitHub Pages domain
+(e.g. `https://hrystynaivaniv.github.io`).
 
-(Опційно, для rate limit по IP):
+(Optional, for per-IP rate limiting):
 
 ```bash
 npx wrangler kv namespace create RATE_LIMIT_KV
-# скопіювати id, який видасть команда, у [[kv_namespaces]] у wrangler.toml
+# paste the id it prints into [[kv_namespaces]] in wrangler.toml
 ```
 
-Деплой:
+Deploy:
 
 ```bash
 npx wrangler deploy
 ```
 
-Команда виведе URL типу `https://voice-agent.<ваш-субдомен>.workers.dev`.
+The command prints a URL like `https://voice-agent.<your-subdomain>.workers.dev`.
 
-Скопіюйте цей URL і той самий код доступу, який задали через
-`wrangler secret put ACCESS_CODE`, у `docs/app.js`:
+Copy that URL and the same access code you set with
+`wrangler secret put ACCESS_CODE` into `docs/app.js`:
 
 ```js
-const WORKER_URL = "https://voice-agent.<ваш-субдомен>.workers.dev";
-const ACCESS_CODE = "<ваш код доступу>";
+const WORKER_URL = "https://voice-agent.<your-subdomain>.workers.dev";
+const ACCESS_CODE = "<your access code>";
 ```
 
-Закомітьте й запуште зміну — сторінка на GitHub Pages підхопить нові значення.
+Commit and push — the GitHub Pages site will pick up the new values.
 
-> Код доступу тут — не секрет: сторінка й репозиторій публічні, тож будь-хто
-> може подивитись `app.js` у DevTools і побачити код. Реальний захист від
-> зловживань — rate limit у воркері та billing limit в OpenAI (нижче), а сам
-> код доступу лишається лише формальним бар'єром. Підходить, якщо ви повністю
-> довіряєте аудиторії сторінки.
+> The access code here is not a real secret: the page and repo are public,
+> so anyone can view `app.js` in DevTools and read it. The real protection
+> against abuse is the worker's rate limit and the OpenAI billing limit
+> (below); the access code is just a formal barrier. This is fine if you
+> fully trust the page's audience.
 
-## 2. Деплой фронтенду (GitHub Pages)
+## 2. Deploy the frontend (GitHub Pages)
 
-1. Запушити цей репозиторій на GitHub.
-2. Settings → Pages → Source: `Deploy from a branch`, папка `/docs`.
-3. Сторінка з'явиться на `https://<username>.github.io/<repo>/`.
+1. Push this repository to GitHub.
+2. Settings → Pages → Source: `Deploy from a branch`, folder `/docs`.
+3. The page will appear at `https://<username>.github.io/<repo>/`.
 
-## 3. Використання
+## 3. Usage
 
-Відкрити сторінку → обрати модель/голос → вставити текст → «Прослухати» /
-«Зберегти mp3». Жодних додаткових полів вводити не потрібно — `WORKER_URL`
-і `ACCESS_CODE` вже вшиті у сторінку.
+Open the page → pick a model/voice → paste the text → "Play" / "Save mp3".
+No extra fields to fill in — `WORKER_URL` and `ACCESS_CODE` are already
+baked into the page.
 
-## 4. Захист бюджету
+## 4. Budget protection
 
-Обов'язково встановіть ліміт видатків в OpenAI (Billing → Usage limits) —
-це головний запобіжник від несподіваного рахунку, незалежно від коду.
+Make sure to set a spending limit in OpenAI (Billing → Usage limits) —
+that's the real safeguard against an unexpected bill, independent of the code.
 
-## Локальна CLI-версія
+## Local CLI version
 
-`VoiceAgent.py` лишається окремим інструментом для пакетної озвучки `content.docx`
-речення-за-реченням — веб-сторінка це не замінює, а доповнює для точкової озвучки
-одного фрагмента тексту з обраним голосом/промптом.
+`VoiceAgent.py` remains a separate tool for batch-voicing `content.docx`
+sentence by sentence — the web page doesn't replace it, but complements it
+for one-off voicing of a single text snippet with a chosen voice/prompt.

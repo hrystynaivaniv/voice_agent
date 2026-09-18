@@ -5,14 +5,14 @@ compatibility_date = "2024-09-01"
 [vars]
 ALLOWED_ORIGIN = "https://hrystynaivaniv.github.io"
 
-# Секрети (OPENAI_API_KEY, ACCESS_CODE) НЕ зберігаються тут.
-# Задаються командами:
+# Secrets (OPENAI_API_KEY, ACCESS_CODE) are NOT stored here.
+# Set them with:
 #   wrangler secret put OPENAI_API_KEY
 #   wrangler secret put ACCESS_CODE
 
-# Опційно, для rate limiting. Створити namespace:
+# Optional, for rate limiting. Create the namespace:
 #   wrangler kv namespace create RATE_LIMIT_KV
-# і вставити id, який видасть команда:
+# and paste the id it prints:
 # [[kv_namespaces]]
 # binding = "RATE_LIMIT_KV"
 # id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"

@@ -1,18 +1,18 @@
 <!doctype html>
-<html lang="uk">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Voice Agent — озвучка тексту</title>
+  <title>Voice Agent — Text to Speech</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <main class="card">
-    <h1>Озвучка тексту (TTS)</h1>
+    <h1>Text to Speech</h1>
 
     <div class="row">
       <div class="col">
-        <label for="model">Модель</label>
+        <label for="model">Model</label>
         <select id="model">
           <option value="tts-1">tts-1</option>
           <option value="tts-1-hd">tts-1-hd</option>
@@ -21,7 +21,7 @@
       </div>
 
       <div class="col">
-        <label for="voice">Голос</label>
+        <label for="voice">Voice</label>
         <select id="voice">
           <option value="alloy">alloy</option>
           <option value="ash">ash</option>
@@ -37,15 +37,15 @@
       </div>
     </div>
 
-    <label for="text">Текст для озвучки</label>
-    <textarea id="text" rows="6" placeholder="Вставте текст, який потрібно озвучити..."></textarea>
+    <label for="text">Text to speak</label>
+    <textarea id="text" rows="6" placeholder="Paste the text you want to voice..."></textarea>
 
-    <label for="prompt">Промпт (інструкції щодо тону)</label>
+    <label for="prompt">Prompt (tone instructions)</label>
     <textarea id="prompt" rows="3">Read the text with a tone that is clear, professional, high energy and confident, but not monotonous. Add slight warmth and emphasis so learners stay interested.</textarea>
 
     <div class="actions">
-      <button id="playBtn">▶ Прослухати</button>
-      <button id="saveBtn" disabled>⬇ Зберегти mp3</button>
+      <button id="playBtn">▶ Play</button>
+      <button id="saveBtn" disabled>⬇ Save mp3</button>
     </div>
 
     <p id="status" class="status"></p>
